@@ -38,9 +38,6 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
     else
 	color_prompt=
@@ -78,6 +75,17 @@ alias cdcode='cd $CODE'
 # Aliases
 alias la='ls -alh'
 alias svim='sudo vim'
+alias gcode='cd $HOME/code/go'
+alias cdcode='cd $CODE'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Package Maintenance Aliases
+alias update='sudo apt-get update'
+alias upgrade='sudo apt-get dist-upgrade -y'
+alias clean='sudo apt-get clean'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -91,7 +99,7 @@ if ! shopt -oq posix; then
 fi
 
 # Go shell variables.
-export GOPATH=$HOME/go
+export GOPATH=$HOME/code/go
 export PATH=$PATH:$GOPATH/bin
 ulimit -n 8096
 export PATH=$PATH:/usr/local/go/bin
@@ -104,3 +112,18 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Convenience Functions
 mkcd() { mkdir -p "$@" && cd $_; }
+
+# Playing with ze prompt
+function __setprompt {
+  local GREEN="\[\033[1;32m\]"
+  local NO_COLOUR="\[\033[0m\]"
+  local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
+  local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
+  if [ $SSH2_IP ] || [ $SSH_IP ] ; then
+    local SSH_FLAG="@\h"
+  fi
+  PS1="$BLUE[\$(date +%H:%M)][\w]\\$ $NO_COLOUR"
+  PS2="$BLUE>$NO_COLOUR "
+  PS4='$BLUE+$NO_COLOUR '
+}
+__setprompt
