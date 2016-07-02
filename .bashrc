@@ -13,8 +13,6 @@ shopt -s histappend
 # Git Alias for managing dotfiles
 # Sourced from: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 alias config='/usr/bin/git --git-dir=/home/dmcclellan/.cfg/ --work-tree=/home/dmcclellan'
-alias config='/usr/bin/git --git-dir=/home/dmcclellan/.cfg/ --work-tree=/home/dmcclellan'
-alias config='/usr/bin/git --git-dir=/home/dmcclellan/.cfg/ --work-tree=/home/dmcclellan'
 
 # Set VIM as our editor
 export EDITOR=vim
